@@ -12,6 +12,7 @@ class Table extends React.Component {
           </tr>
         </thead>
         <tbody >
+      {/* Map through those candidates and render them out. */}
           {this.props.candidates.map((candidate) => {
             return(
               <tr>

@@ -1,8 +1,13 @@
+/* Require smart contract and create an artifact that truffle will use 
+  to create an abstraction to interact with our contract. */ 
 var Election = artifacts.require("./Election.sol");
 
+/* Declare our contract and inject all the accounts that exist in 
+  our development environment to use for testing purposes. */
 contract("Election", function(accounts) {
   var electionInstance;
 
+  // Test if our contract is initialized with the correct number of candidates.
   it("initializes with two candidates", function() {
     return Election.deployed().then(function(instance) {
       return instance.candidatesCount();
@@ -11,6 +16,8 @@ contract("Election", function(accounts) {
     });
   });
 
+  /* Test if our candidates are initialized with the correct values,
+    which determines if name, id and vote count is correct.*/
   it("it initializes the candidates with the correct values", function() {
     return Election.deployed().then(function(instance) {
       electionInstance = instance;
@@ -27,6 +34,10 @@ contract("Election", function(accounts) {
     });
   });
 
+  /* 1)Test if the function increment works, whether the candidate 
+        vote count goes up by 1 each time it is being voted.
+     2) Test if the voter was being added to the mapping we created, 
+        if our contract knows that an account has already voted. */
   it("allows a voter to cast a vote", function() {
     return Election.deployed().then(function(instance) {
       electionInstance = instance;
@@ -46,6 +57,7 @@ contract("Election", function(accounts) {
     })
   });
 
+  // Test to throw an exception for an invalid candidate.
   it("throws an exception for invalid candiates", function() {
     return Election.deployed().then(function(instance) {
       electionInstance = instance;
@@ -63,6 +75,7 @@ contract("Election", function(accounts) {
     });
   });
 
+  // Test to make sure that the account cannot vote twice.
   it("throws an exception for double voting", function() {
     return Election.deployed().then(function(instance) {
       electionInstance = instance;

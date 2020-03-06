@@ -1,3 +1,5 @@
+// Smart contract that handles migrations when deplying smart contracts to blockchain.
+
 pragma solidity >=0.4.21 <0.7.0;
 
 contract Migrations {
